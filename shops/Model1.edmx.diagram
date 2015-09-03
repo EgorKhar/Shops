@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c66c08d40b3f4670b8b685965278823c" Name="Diagram1">
+        <EntityTypeShape EntityType="Database1Model.Cash" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.CashHeading" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Customer" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Good" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Shop" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model.FK_IdCashHeading_CashHeadingId" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_IdGood_GoodId" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_IdCustomer_CustomerId" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_IdShop_ShopId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

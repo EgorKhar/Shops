@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище Database1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cash">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id_good" Type="int" Nullable="false" />
+    <Property Name="Id_cashheading" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CashHeading">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id_customer" Type="int" Nullable="false" />
+    <Property Name="Id_shop" Type="int" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Good">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Article" Type="nchar" MaxLength="10" />
+    <Property Name="Material" Type="nchar" MaxLength="10" />
+    <Property Name="Color" Type="nchar" MaxLength="10" />
+    <Property Name="Price" Type="int" />
+  </EntityType>
+  <EntityType Name="Shop">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Shop" Type="nchar" MaxLength="10" />
+    <Property Name="Address" Type="nchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="FK_IdCashHeading_CashHeadingId">
+    <End Role="CashHeading" Type="Self.CashHeading" Multiplicity="1" />
+    <End Role="Cash" Type="Self.Cash" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CashHeading">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cash">
+        <PropertyRef Name="Id_cashheading" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdCustomer_CustomerId">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="CashHeading" Type="Self.CashHeading" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CashHeading">
+        <PropertyRef Name="Id_customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdGood_GoodId">
+    <End Role="Good" Type="Self.Good" Multiplicity="1" />
+    <End Role="Cash" Type="Self.Cash" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Good">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cash">
+        <PropertyRef Name="Id_good" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdShop_ShopId">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+    <End Role="CashHeading" Type="Self.CashHeading" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CashHeading">
+        <PropertyRef Name="Id_shop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище Database1ModelContainer">
+    <EntitySet Name="Cash" EntityType="Self.Cash" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CashHeading" EntityType="Self.CashHeading" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Good" EntityType="Self.Good" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_IdCashHeading_CashHeadingId" Association="Self.FK_IdCashHeading_CashHeadingId">
+      <End Role="CashHeading" EntitySet="CashHeading" />
+      <End Role="Cash" EntitySet="Cash" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdCustomer_CustomerId" Association="Self.FK_IdCustomer_CustomerId">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="CashHeading" EntitySet="CashHeading" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdGood_GoodId" Association="Self.FK_IdGood_GoodId">
+      <End Role="Good" EntitySet="Good" />
+      <End Role="Cash" EntitySet="Cash" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdShop_ShopId" Association="Self.FK_IdShop_ShopId">
+      <End Role="Shop" EntitySet="Shop" />
+      <End Role="CashHeading" EntitySet="CashHeading" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

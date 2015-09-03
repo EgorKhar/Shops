@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cash">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id_good" Type="Int32" Nullable="false" />
+    <Property Name="Id_cashheading" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CashHeading" Relationship="Self.FK_IdCashHeading_CashHeadingId" FromRole="Cash" ToRole="CashHeading" />
+    <NavigationProperty Name="Good" Relationship="Self.FK_IdGood_GoodId" FromRole="Cash" ToRole="Good" />
+  </EntityType>
+  <EntityType Name="CashHeading">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id_customer" Type="Int32" Nullable="false" />
+    <Property Name="Id_shop" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Cash" Relationship="Self.FK_IdCashHeading_CashHeadingId" FromRole="CashHeading" ToRole="Cash" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_IdCustomer_CustomerId" FromRole="CashHeading" ToRole="Customer" />
+    <NavigationProperty Name="Shop" Relationship="Self.FK_IdShop_ShopId" FromRole="CashHeading" ToRole="Shop" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="CashHeading" Relationship="Self.FK_IdCustomer_CustomerId" FromRole="Customer" ToRole="CashHeading" />
+  </EntityType>
+  <EntityType Name="Good">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Article" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Material" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Color" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Price" Type="Int32" />
+    <NavigationProperty Name="Cash" Relationship="Self.FK_IdGood_GoodId" FromRole="Good" ToRole="Cash" />
+  </EntityType>
+  <EntityType Name="Shop">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Shop1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="CashHeading" Relationship="Self.FK_IdShop_ShopId" FromRole="Shop" ToRole="CashHeading" />
+  </EntityType>
+  <Association Name="FK_IdCashHeading_CashHeadingId">
+    <End Role="CashHeading" Type="Self.CashHeading" Multiplicity="1" />
+    <End Role="Cash" Type="Self.Cash" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CashHeading">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cash">
+        <PropertyRef Name="Id_cashheading" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdGood_GoodId">
+    <End Role="Good" Type="Self.Good" Multiplicity="1" />
+    <End Role="Cash" Type="Self.Cash" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Good">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cash">
+        <PropertyRef Name="Id_good" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdCustomer_CustomerId">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="CashHeading" Type="Self.CashHeading" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CashHeading">
+        <PropertyRef Name="Id_customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdShop_ShopId">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+    <End Role="CashHeading" Type="Self.CashHeading" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CashHeading">
+        <PropertyRef Name="Id_shop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cash" EntityType="Self.Cash" />
+    <EntitySet Name="CashHeading" EntityType="Self.CashHeading" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" />
+    <EntitySet Name="Good" EntityType="Self.Good" />
+    <EntitySet Name="Shop" EntityType="Self.Shop" />
+    <AssociationSet Name="FK_IdCashHeading_CashHeadingId" Association="Self.FK_IdCashHeading_CashHeadingId">
+      <End Role="CashHeading" EntitySet="CashHeading" />
+      <End Role="Cash" EntitySet="Cash" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdGood_GoodId" Association="Self.FK_IdGood_GoodId">
+      <End Role="Good" EntitySet="Good" />
+      <End Role="Cash" EntitySet="Cash" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdCustomer_CustomerId" Association="Self.FK_IdCustomer_CustomerId">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="CashHeading" EntitySet="CashHeading" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdShop_ShopId" Association="Self.FK_IdShop_ShopId">
+      <End Role="Shop" EntitySet="Shop" />
+      <End Role="CashHeading" EntitySet="CashHeading" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
